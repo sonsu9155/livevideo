@@ -1,0 +1,12 @@
+http://199.247.27.203:81/
+
+password: aerocoin2019!!
+
+
+
+<VirtualHost *:80>
+    #ServerName www.cztjrjt.com
+    #RedirectPermanent /  http://czttzw.com/livevideo
+    # optionally add an AccessLog directive for
+    # logging the requests and do some statistics
+</VirtualHost>
