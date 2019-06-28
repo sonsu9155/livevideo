@@ -2635,10 +2635,8 @@ function sendMessage(options) {
                 '<div class="dot-top"></div>'+
                 '<div class="chat-body ">'+
                 '<span class="chat-content" style="  ">'+
-                '<!-- <img class="chat-pic" title="点击查看原图" src="http://res.wufangsoft.com/wolf/upload/admin/CFvveUEZEipLjyFbfGUbMCTER.gif" style="max-mwidth: 100%; max-height: 320px;"/> -->'+
                  message.body +
                 '</span>'+
-                '<span class="chat-plat">来自:'+ message.platform+'</span>'+
                 '</div>'+
                 '</div>';
             }else{
@@ -2659,9 +2657,7 @@ function sendMessage(options) {
                 '<div class="chat-body ">'+
                 '<span class="chat-content" style="  ">'+
                 ' <img class="chat-pic" title="点击查看原图" src='+ message.body +' style="max-mwidth: 100%; max-height: 320px;"/>'+
-              
                 '</span>'+
-                '<span class="chat-plat">来自:'+ message.platform+'</span>'+
                 '</div>'+
                 '</div>';
             }
