@@ -4,8 +4,8 @@
 <head>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,Chrome=1">
-	<title></title>
-		<link href="/images/livevideo/SeEhMcOADFdgFdAeJBWtXpFGo.ico" rel="shortcut icon" type="image/x-icon">
+	<title>直播</title>
+	<link href="/images/livevideo/main.ico" rel="shortcut icon" type="image/x-icon">
 	<meta name="Keywords" content="">
 	<meta name="description" content="">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -97,7 +97,64 @@
 		z-index:0;
 	}
 </style>
+<script type="text/javascript">
+if(!window.console){
+	window.console = {log:function(){}}
+}
+window.D = {
+	chatLen:parseInt('100'),
+	loginUiType:'0',
+	roomId:'12135',
+	roomTitle:'',
+	parentRoomId:'12090',
+	dynamicMsg:'',
+	showUserlist:0,
+	theme:{"layout":"layout-video-left"},
+	loginPopTs: "2147483647" * 1000|| 0,
+	showjc:0,
+	teacher_pre:'当前讲师：',
+	defaultBgStyle:'theme-background-0',
+	stockCode:"s_sh000001,s_sz399001,s_sz399006,s_sh000300,rt_hkHSI,gb_dji,hf_CHA50CFD",
+	lookVideoImg:"",
+	videoHW:'0.5625',
+	hot_btn:'投票',
+		videoBgImg:"http://res.wufangsoft.com/wolf/upload/admin/GHaGeLankIWAjdIGNPsemtNBz.jpg",
+		popType:'0',
+	chargeOpend:0,
+	containFortune:0,
+	jf_fortune_pop:0,
+	hot_got_max:0,
+	hot_got_ts:0,
+	chatOption:{
+		topic:'6e176d9a1f751b3054d14019e730c5dc_12135',
+				guestTopic:'49ac2035357148cbed4760bb0c5f7e30_12135',
+				siteTopic:'w_s_chat_307',
+				
+				clientId:'12135_12788659_web',
+				bigRoom:0
+	},
+	USER:{
+		uid:'12788659',
+		name:'游客SIP4W0SE',
+		type:'100',
+		pic:'image/livevideo/11.png',
+		chatIntervalCount:1,
+		plat:'web',
+		logined:0,
+		isManager:0,
+		isTeacher:0,
+		lookvideo:1,
+		vipLimitTs:0,
+		showVipBuy:0,
+	}
+}
 
+var __real_robot_num = 0;
+var __base__ = 0;
+var __base_num__ = 300;
+
+$(function(){})
+</script>
 </head>
 <body>
 <!-- <div class="danmu-warp">
@@ -250,28 +307,17 @@
 						<!------------     userlist        -->
 						<ul id="idUserList" style="margin-bottom: 0px;">
 						@foreach($online_users as $index => $online_user)
-							<li class="user-item    select-role-mgr  " id="user_11569479_web" data-type="500" data-id="11569479" data-name="gz0801" style="display: block;">
+							<li class="user-item select-role-mgr " id="{{ $online_user->user->id }}" data-type="500" data-id="11569479" data-name="{{ $online_user->user->name}}" style="display: block;">
 								<a>
-									<img src="http://wolfcdn.wufangsoft.com/assets/img/avatar/t3/32/09.png" alt="user">
-									<span class="text">{{ $online_user }}</span>
+									<img src="/upload/{{ $online_user->user->avatar }}" alt="user">
+									<span class="text">{{ $online_user->user->name }}</span>
 								</a>
 								<div style="position:absolute;right:0px;top:0px;">
-									<span class="rolebtn say rolebtn-tochat js-chat-select-name" data-usertype="500" data-uid={{ $online_user->id }} data-name={{ $online_user->name }} >  </span>
-									<span class="rolebtn look rolebtn-look " data-uid={{ $online_user->id }}  data-name={{ $online_user->name }}> </span>
-									<span class="icon icon-500"></span>
-								</div>
-							</li>
-							<li class="user-item select-role-robot" id="robot_user_1003657953" data-type="1" data-name="一粒">
-								<a>
-									<img src="https://wolfcdn.wufangsoft.com/assets/img/avatar/t3/32/07.png" alt="user">
-									<span style="color:#fe5244;" class="text">一粒</span>
-								</a>
-								<div style="position:absolute;right:0px;top:0px;">
-									<span class="rolebtn say js-chat-select-name" data-usertype="1" data-uid="1003657953" data-name="一粒"> </span>
-											<span class="rolebtn look rolebtn-look" data-uid="1003657953" data-name="一粒"> </span>
+									<span class="rolebtn say rolebtn-tochat js-chat-select-name" data-usertype="1" data-uid="{{ $online_user->user->id }}" data-name="{{ $online_user->user->name }}" >  </span>
+									<span class="rolebtn look rolebtn-look " data-uid="{{ $online_user->user->id }}"  data-name="{{ $online_user->user->name }}"> </span>
 									<span class="icon icon-1"></span>
 								</div>
-							</li>
+							</li>							
 						@endforeach
 						</ul>
 					</div>
@@ -358,7 +404,7 @@
 													</div>
 												</li>
 											</ul>
-											<button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"> Ok</button>
+											<button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal">确认</button>
 										</div>
 									</div>
  								</div>

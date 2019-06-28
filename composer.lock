@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce1da9c489b796d849df35856158ee87",
+    "content-hash": "6053d74612f6bde4a8f2fbf2166f07ec",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -816,56 +816,6 @@
                 "php"
             ],
             "time": "2017-11-11T15:42:02+00:00"
-        },
-        {
-            "name": "kim/activity",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thomastkim/laravel-online-users.git",
-                "reference": "840d55e727349b7ac206005c021e1f0190a68c6f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thomastkim/laravel-online-users/zipball/840d55e727349b7ac206005c021e1f0190a68c6f",
-                "reference": "840d55e727349b7ac206005c021e1f0190a68c6f",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^5.2",
-                "illuminate/session": "^5.2",
-                "illuminate/support": "^5.2",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Kim\\": "src/Kim"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Thomas Kim",
-                    "email": "thomas@thomastkim.com",
-                    "homepage": "http://thomastkim.com"
-                }
-            ],
-            "description": "Easily retrieve a list of users and guests that are online.",
-            "homepage": "https://github.com/thomastkim/laravel-online-users",
-            "keywords": [
-                "laravel",
-                "online activity",
-                "php"
-            ],
-            "time": "2016-04-18T23:27:58+00:00"
         },
         {
             "name": "laravel/framework",

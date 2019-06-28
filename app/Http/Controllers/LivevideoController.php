@@ -7,6 +7,7 @@ use App\Message;
 use Auth;
 use Hash;
 use App\User;
+use Active;
 
 class LivevideoController extends Controller
 {
@@ -31,7 +32,7 @@ class LivevideoController extends Controller
     public function vipvideo(){
         $user = Auth::user();
         $messages = Message::get();
-    
+        $online_users = Active::users()->get();;
         return view('home.vipvideo')->with(compact('user','messages','online_users'));
     }
 

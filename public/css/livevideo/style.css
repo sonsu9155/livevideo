@@ -540,7 +540,7 @@ a:visited {color: #fff;text-decoration: none;}
 	width: 26px;
 	border-radius: 26px;
 	vertical-align: middle;
-	margin-right: 3px;
+	margin-right: 20%;
 }
 .user-list .user-item .icon {
 	display: inline-block;

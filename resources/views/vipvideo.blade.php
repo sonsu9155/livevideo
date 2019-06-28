@@ -3,9 +3,9 @@
 <head>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,Chrome=1">
-	<title></title>
-		<link href="/images/livevideo/SeEhMcOADFdgFdAeJBWtXpFGo.ico" rel="shortcut icon" type="image/x-icon">
-		<meta name="Keywords" content="">
+	<title>直播</title>
+	<link href="/images/livevideo/main.ico" rel="shortcut icon" type="image/x-icon">
+	<meta name="Keywords" content="">
 	<meta name="description" content="">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
