@@ -18,15 +18,42 @@ class LivevideoController extends Controller
         $message = $_POST['message'];     
         $toUid = 'admin';       
         $platform = $_POST['plat'];   
-    
-        $res =  new Message();        
-        $res->user_id =  Auth::user()->id;
-        $res->type = $_POST['type'];
-        $res->to_userid =  $toUid;
-        $res->body =  $message;         
-        $res->save();
+       
+        $active_users = Active::users()->get();
+        
+        foreach($active_users as $active_user){
+            $res =  new Message();        
+            $res->user_id =  Auth::user()->id;
+            $res->type = $_POST['type'];
+            $res->to_userid =  $active_user->user->id;
+            $res->body =  $message;         
+            $res->save();
+        }
+        //
+        $res_admin =  new Message();        
+        $res_admin->user_id =  Auth::user()->id;
+        $res_admin->type = $_POST['type'];
+        $res_admin->to_userid =  $toUid;
+        $res_admin->body =  $message;         
+        $res_admin->save();
+        //var_dump(Auth::user()->id);exit();
+        $res_user = Message::where('to_userid', Auth::user()->id)->first();   
 
-        return $res;
+        $res_del = Message::where('to_userid', Auth::user()->id)->latest()->delete();
+        $res_user->user_name =Auth::user()->name;
+        return $res_user;
+    }
+
+    public function show(){
+        $user = Auth::user();
+        $messages = Message::where('to_userid', $user->id)->get();
+        foreach($messages as $message){
+            $user_from = User::find($message->user_id);
+            $message->user_name = $user_from->name;
+            $message->delete();
+        }
+
+        return $messages;
     }
 
     public function vipvideo(){

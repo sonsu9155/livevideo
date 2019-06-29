@@ -29,7 +29,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
 			});
-		
+			show_messages();
+
 			var slideIndex = 0;
 			showSlides();
 
@@ -301,7 +302,8 @@ $(function(){})
 					<div class="title alpha-bg-title ">
 						<img src="/images/livevideo/uselistico.png">
 						<span class="dropdown-toggle"  data-hover="dropdown">
-						<span style="margin-left: 5px;">在线用户</span>
+							<span style="margin-left: 5px;">在线用户</span>
+						</span>
 					</div>
 					<div  class=" user-list nice-scroll alpha-bg-body" style="height:100%;">
 						<!------------     userlist        -->
@@ -496,33 +498,7 @@ $(function(){})
 								<div id="chat-clean-screen-btn" title="清理屏幕" class="chat-content-exFun-item clearchat"></div>
 							</div>
 							<div class="chat-wrap-content nice-scroll-h" >
-								@foreach($messages as $index => $message)
-									<div class="chat-message-new   chat-message-type-1 clearfix" data-time="09:31" data-msgid="132136983" id="js-chat-messages-132136983">
-										<div class="chat-header">
-											<span class="chat-name-bg">
-											<span class="chat-role-4"></span>
-											<span data-uid="11642897" data-name="{{ $message->user->name }}" data-usertype="4" class="chat-name js-chat-select-name">{{ $message->user->name }} </span>
-											<span class="chat-time">{{ $message->created_at }}</span>
-											</span>
-											<div class="chat-op">
-											<!--可以看自己房间的用户信息-->
-												<a class="chat-message-look-btn rolebtn look" data-uid="11642897"></a>
-												<a class=" rolebtn del chat-message-delete-btn" data-id="132136983"></a>
-											</div>
-										</div>
-										<div class="dot-top"></div>
-										<div class="chat-body ">
-											<span class="chat-content" style="  ">
-												@if($message->type =='1')
-													{{ $message->body }}
-												@else
-													<img class="chat-pic" title="点击查看原图" src="{{ $message->body }}" style="max-mwidth: 100%; max-height: 320px;" >
-												@endif
-											</span>
-											<span class="chat-plat">来自:{{ $message->platform }}</span>
-										</div>
-									</div>
-								@endforeach
+							
 							</div>
 						</div>
 						<div class="chat-float-model" >

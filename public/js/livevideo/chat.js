@@ -716,19 +716,19 @@ function initDialog() {
 }
 
 function resizeVideo(){
-    var width = $('.main-video-player').width();
-    height = width * window.D.videoHW;
-    height+=28;
-    $('.main-video-player').height(height);
+    // var width = $('.main-video-player').width();
+    // height = width * window.D.videoHW;
+    // height+=28;
+    // $('.main-video-player').height(height);
 
-    if($('.main-gift').length > 0){
-        tmp = width/10;
-        if(tmp > 80){
-            tmp = 80;
-        }
-        height += tmp;
-    }
-    $('.main-room-info').css("top",height +3);
+    // if($('.main-gift').length > 0){
+    //     tmp = width/10;
+    //     if(tmp > 80){
+    //         tmp = 80;
+    //     }
+    //     height += tmp;
+    // }
+    // $('.main-room-info').css("top",height +3);
     resizeSiderUl();
 }
 function resizeChatHeight(){
@@ -2618,12 +2618,13 @@ function sendMessage(options) {
     }
     function  doSend(messageData,data){
         $.post('/chat/send', messageData , function(message, status) {
+           //alert(message);           
             if (message.type == "1" ){
                 var addcontent='<div class="chat-message-new   chat-message-type-1 clearfix" data-time="09:31" data-msgid="132136983" id="js-chat-messages-132136983">' +
                 '<div class="chat-header">'+
                 '<span class="chat-name-bg">'+
                 '<span class="chat-role-4"></span>'+
-                '<span data-uid="11642897" data-name='+ message.user_id +'data-usertype="4" class="chat-name js-chat-select-name">'+ message.user_id+' </span>'+
+                '<span data-uid="11642897" data-name='+ message.user_name +'data-usertype="4" class="chat-name js-chat-select-name">'+ message.user_name+' </span>'+
                 '<span class="chat-time">'+new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDate() +'   '+new Date().getHours()+':'+new Date().getMinutes() +'</span>'+
                 '</span>'+
                 '<div class="chat-op">'+
@@ -2644,7 +2645,7 @@ function sendMessage(options) {
                 '<div class="chat-header">'+
                 '<span class="chat-name-bg">'+
                 '<span class="chat-role-4"></span>'+
-                '<span data-uid="11642897" data-name='+ message.user_id +'data-usertype="4" class="chat-name js-chat-select-name">'+ message.user_id+' </span>'+
+                '<span data-uid="11642897" data-name='+ message.user_name +'data-usertype="4" class="chat-name js-chat-select-name">'+ message.user_name+' </span>'+
                 '<span class="chat-time">'+new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDate() +'   '+new Date().getHours()+':'+new Date().getMinutes() +'</span>'+
                 '</span>'+
                 '<div class="chat-op">'+
@@ -2667,6 +2668,63 @@ function sendMessage(options) {
        
         outputChatMessage($CHAT_MESSAGE.render(data), true)
     }
+}
+
+function show_messages(){
+    
+    $.get('/chat/show', function(message, status){
+        //alert(message);
+        for(i=0;i<message.length;i++){
+            if (message[i].type == "1" ){
+                var addcontent='<div class="chat-message-new   chat-message-type-1 clearfix" data-time="09:31" data-msgid="132136983" id="js-chat-messages-132136983">' +
+                '<div class="chat-header">'+
+                '<span class="chat-name-bg">'+
+                '<span class="chat-role-4"></span>'+
+                '<span data-uid="11642897" data-name='+ message[i].user_name +'data-usertype="4" class="chat-name js-chat-select-name">'+ message[i].user_name+' </span>'+
+                '<span class="chat-time">'+new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDate() +'   '+new Date().getHours()+':'+new Date().getMinutes() +'</span>'+
+                '</span>'+
+                '<div class="chat-op">'+
+                '<!--可以看自己房间的用户信息-->'+
+                '<a class="chat-message-look-btn rolebtn look" data-uid="11642897"></a>'+
+                '<a class=" rolebtn del chat-message-delete-btn" data-id="132136983"></a>'+
+                '</div>'+
+                '</div>'+
+                '<div class="dot-top"></div>'+
+                '<div class="chat-body ">'+
+                '<span class="chat-content" style="  ">'+
+                message[i].body +
+                '</span>'+
+                '</div>'+
+                '</div>';
+            }else{
+                var addcontent='<div class="chat-message-new   chat-message-type-1 clearfix" data-time="09:31" data-msgid="132136983" id="js-chat-messages-132136983">'+
+                '<div class="chat-header">'+
+                '<span class="chat-name-bg">'+
+                '<span class="chat-role-4"></span>'+
+                '<span data-uid="11642897" data-name='+ message[i].user_name +'data-usertype="4" class="chat-name js-chat-select-name">'+ message[i].user_name+' </span>'+
+                '<span class="chat-time">'+new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDate() +'   '+new Date().getHours()+':'+new Date().getMinutes() +'</span>'+
+                '</span>'+
+                '<div class="chat-op">'+
+                '<!--可以看自己房间的用户信息-->'+
+                '<a class="chat-message-look-btn rolebtn look" data-uid="11642897"></a>'+
+                '<a class=" rolebtn del chat-message-delete-btn" data-id="132136983"></a>'+
+                '</div>'+
+                '</div>'+
+                '<div class="dot-top"></div>'+
+                '<div class="chat-body ">'+
+                '<span class="chat-content" style="  ">'+
+                ' <img class="chat-pic" title="点击查看原图" src='+ message[i].body +' style="max-mwidth: 100%; max-height: 320px;"/>'+
+                '</span>'+
+                '</div>'+
+                '</div>';
+            }
+            $chatContentDomWrap.append(addcontent);
+        };
+        setTimeout(function(){
+            show_messages();
+        }, 3000);
+    });
+    
 }
 function outputSystemMessage(msg, time, font_size, font_color) {
     if (!time) time = getTimeFormat();

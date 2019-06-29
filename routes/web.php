@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'],function(){
 
         Route::get('/vipvideo', 'LivevideoController@vipvideo');
         Route::post('/chat/send', 'LivevideoController@send');
+        Route::get('/chat/show', 'LivevideoController@show');
         Route::post('/profile/update', 'LivevideoController@profile_update');
 
 });

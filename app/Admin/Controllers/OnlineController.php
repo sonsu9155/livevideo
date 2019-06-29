@@ -8,7 +8,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Kim\Activity\Activity;
+use Rainwater\Active\Active;
 
 class OnlineController extends Controller
 {
@@ -79,7 +79,7 @@ class OnlineController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Activity);
+        $grid = new Grid(new Active);
 
         $grid->id('ID')->sortable();
         $grid->user_id('用户ID');
@@ -98,7 +98,7 @@ class OnlineController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Activity::findOrFail($id));
+        $show = new Show(Active::findOrFail($id));
 
         $show->id('ID');
         $show->user_id('用户ID');
@@ -116,7 +116,7 @@ class OnlineController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Activity);
+        $form = new Form(new Active);
 
         $form->display('id', 'ID');
         $form->user_id('用户ID');

@@ -716,18 +716,18 @@ function initDialog() {
 }
 
 function resizeVideo(){
-    var width = $('.main-video-player').width();
-    height = width * window.D.videoHW;
-    height+=28;
-    $('.main-video-player').height(height);
+    // var width = $('.main-video-player').width();
+    // height = width * window.D.videoHW;
+    // height+=28;
+    // $('.main-video-player').height(height);
 
-    if($('.main-gift').length > 0){
-        tmp = width/10;
-        if(tmp > 80){
-            tmp = 80;
-        }
-        height += tmp;
-    }
+    // if($('.main-gift').length > 0){
+    //     tmp = width/10;
+    //     if(tmp > 80){
+    //         tmp = 80;
+    //     }
+    //     height += tmp;
+    // }
     $('.main-room-info').css("top",height +3);
     resizeSiderUl();
 }
