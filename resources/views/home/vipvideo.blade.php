@@ -548,18 +548,17 @@ $(function(){})
 	<link rel="stylesheet" type="text/css" href="/css/livevideo/animations.css">
 	<link rel="stylesheet" type="text/css" href="/css/livevideo/sina-emotion.css">
 	<link rel="stylesheet" type="text/css" href="/css/livevideo/ui-dialog.css">
-	<!-- Bootstrap Core CSS -->
 
 	<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<!-- Fonts -->
 	<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="/css/animate.css" rel="stylesheet" />
-	<!-- Squad theme CSS -->
+
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/color/default.css" rel="stylesheet">
-
+	<link rel="stylesheet" type="text/css" href="/css/schedule.css">
 	<link rel="stylesheet" type="text/css" href="/css/livevideo/style2.css">
 	<link rel="stylesheet" type="text/css" href="/css/livevideo.css">
+
  
 	<style>
 			ul {
@@ -567,7 +566,6 @@ $(function(){})
 				margin: 0;
 				padding: 0;
 				overflow: hidden;
-				background-color: #333333;
 			}
 
 			li {
@@ -598,20 +596,15 @@ $(function(){})
 				<div class="main-video" style="height:calc(var(--vh, 1vh) *40);">
 									
 					<div class="index-video-wrap" style="height:calc(var(--vh, 1vh) *40);">
-							<div class="main-video-player" style="height:calc(var(--vh, 1vh) *40);">
-								<button onclick="javascript:screenshare();" disabled id="shareBtn" hidden>Share your screen</button>
-								<div id="camera-publisher" hidden></div>
-								<div id="screen-publisher" hidden></div>
-								<div id="camera-subscriber" hidden></div>
-								<div id="screen-subscriber" width="100%"  height="auto"></div>
-									
-								<div id="js-vod-player-wrap" style="display: none;z-index: 100;background: none;"  class="video-player-wrap" ></div>
-								<div class="main-notice alpha-bg-title">
-									<div style="display: inline;"><img src="/images/livevideo/notice.png"></div>
-									<div class="notice_wrap">
-										<span id="js_notice_msg"></span>
-									</div>
+						<div class="main-video-player" style="height:calc(var(--vh, 1vh) *40);">
+							<iframe src="//iframe.dacast.com/b/131474/c/501777" width="100%" height="100%" frameborder="0" scrolling="no" allow="autoplay" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+							<div id="js-vod-player-wrap" style="display: none;z-index: 100;background: none;"  class="video-player-wrap" ></div>
+							<div class="main-notice alpha-bg-title">
+								<div style="display: inline;"><img src="/images/livevideo/notice.png"></div>
+								<div class="notice_wrap">
+									<span id="js_notice_msg"></span>
 								</div>
+							</div>
 						</div>
 						<div class="main-room-info">
 						<div class="line-menu1 tab-header">
@@ -633,54 +626,117 @@ $(function(){})
 					<div class="main-center" style=" height:calc(var(--vh, 1vh) *60);">
 						<div class="main-conent-panle"  style=" height:calc(var(--vh, 1vh) *50);">
 									<ul>
-										<li><a href="/mobile">登录</a></li>
+										<li>
+											@if(auth()->check())
+											<a href="/auth/logout">登出</a>
+											@else
+											<a href="/vipvideo">登录</a>
+											@endif
+										</li>
 										<li><a href="#news">公聊</a></li>
 										<li><a href="#about">人气榜</a></li>
-										<li><a href="#about">更多>></a></li>
-									</ul>
-									<div class="chat-wrap-height alpha-bg-body" style="height:calc(var(--vh, 1vh) *50);">
-										<!-- <div class="ryPopGift ryPopGift_small first"></div>
-										<div class="ryPopGift ryPopGift_small middele"></div>
-										<div class="ryPopGift ryPopGift_small last"></div>
-										<div class="ryPopGift ryPopGift_small ends"></div> -->
-											<div id="js-screen-group" style="z-index: 11;right: 70px;top:3px;display: none;">
-												<div id="chat-lock-screen-btn" title="屏幕锁定开关" class="chat-content-exFun-item unlock"></div>
-												<div id="chat-clean-screen-btn" title="清理屏幕" class="chat-content-exFun-item clearchat"></div>
-											</div>
-											<div class="chat-wrap-content nice-scroll-h" style="height: calc(var(--vh, 1vh)*40);">
-												@foreach($messages as $index => $message)
-													<div class="chat-message-new   chat-message-type-1 clearfix" data-time="09:31" data-msgid="132136983" id="js-chat-messages-132136983">
-														<div class="chat-header">
-															<span class="chat-name-bg">
-																<span class="chat-role-4"></span>
-																<span data-uid="11642897" data-name={{ $message->user->name }} data-usertype="4" class="chat-name js-chat-select-name">{{ $message->user->name }} </span>
-																<span class="chat-time">{{ $message->created_at }}</span>
-															</span>
-															<div class="chat-op">
-															<!--可以看自己房间的用户信息-->
-															<a class="chat-message-look-btn rolebtn look" data-uid="11642897"></a>
-															<a class=" rolebtn del chat-message-delete-btn" data-id="132136983"></a>
+										<li id="js-lecture-btn" data-toggle="modal" data-target="#myModal"><a>讲座计划</a></li>
+									<div class="modal " id="myModal" role="dialog" style="padding-left:0 !important;width:100%">
+										<div class="jg_kcb">
+											<h2 id="div_title">{{\carbon\carbon::now()->format('m')}}月{{\carbon\carbon::now()->format('d')}}日课程安排</h2>
+											<div class="jg_kcb_list">
+												<ul id="courseMt" class="jg_kcb_list_nr">
+													<li>
+														<div class="clearfix ">
+															<div class="fl jg_kcb_list_fl clearfix">
+																<div class="jg_tecer fl ">陈老师</div>
+																<div class="fl jg_title "></div>
+															</div>
+															<div class="fl" style="text-align: left;">
+																<span class="jg_kcb_span">●</span>直播时间：
+																<span data-sat="09:30" data-eat="10:30" data-dsc=""  class="jg_kcb_color lesson-time"> 09:30-10:30</span>
 															</div>
 														</div>
-														<div class="dot-top"></div>
-														<div class="chat-body ">
-															<span class="chat-content" style="  ">
-																@if($message->type =='1')
-																{{ $message->body }}
-																@else
-																<img class="chat-pic" title="点击查看原图" src={{ $message->body }} style="max-mwidth: 100%; max-height: 320px;" >
-																@endif
-															</span>
-															<span class="chat-plat">来自:{{ $message->platform }}</span>
+													</li>			
+													<li>
+														<div class="clearfix ">
+															<div class="fl jg_kcb_list_fl clearfix">
+																<div class="jg_tecer fl ">莫老师</div>
+																<div class="fl jg_title "></div>
+															</div>
+															<div class="fl" style="text-align: left;">
+																<span class="jg_kcb_span">●</span>直播时间：
+																<span data-sat="10:30" data-eat="11:30" data-dsc=""  class="jg_kcb_color lesson-time">10:30-11:30</span>
+															</div>
+														</div>
+													</li>
+																	
+													<li>
+														<div class="clearfix ">
+															<div class="fl jg_kcb_list_fl clearfix">
+																<div class="jg_tecer fl ">陶老师</div>
+																<div class="fl jg_title "></div>
+															</div>
+															<div class="fl" style="text-align: left;">
+																<span class="jg_kcb_span">●</span> 直播时间：
+																<span data-sat="13:30" data-eat="15:00" data-dsc=""  class="jg_kcb_color lesson-time">13:30-15:00</span>
+															</div>
+														</div>
+													</li>
+																	
+													<li>
+														<div class="clearfix ">
+															<div class="fl jg_kcb_list_fl clearfix">
+																<div class="jg_tecer fl ">陈老师</div>
+																<div class="fl jg_title "></div>
+															</div>
+															<div class="fl" style="text-align: left;">
+																<span class="jg_kcb_span">●</span> 直播时间:
+																<span data-sat="20:30" data-eat="21:30" data-dsc=""  class="jg_kcb_color lesson-time">20:30-21:30</span>
+															</div>
+														</div>
+													</li>
+												</ul>
+												<button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal">确认</button>
+											</div>
+										</div>
+									</div>
+									</ul>
+									<div class="chat-wrap-height alpha-bg-body" style="height:calc(var(--vh, 1vh) *50);">
+										<div id="js-screen-group" style="z-index: 11;right: 70px;top:3px;display: none;">
+											<div id="chat-lock-screen-btn" title="屏幕锁定开关" class="chat-content-exFun-item unlock"></div>
+											<div id="chat-clean-screen-btn" title="清理屏幕" class="chat-content-exFun-item clearchat"></div>
+										</div>
+										<div class="chat-wrap-content nice-scroll-h" style="height: calc(var(--vh, 1vh)*40);">
+											@foreach($messages as $index => $message)
+												<div class="chat-message-new   chat-message-type-1 clearfix" data-time="09:31" data-msgid="132136983" id="js-chat-messages-132136983">
+													<div class="chat-header">
+														<span class="chat-name-bg">
+															<span class="chat-role-4"></span>
+															<span data-uid="11642897" data-name={{ $message->user->name }} data-usertype="4" class="chat-name js-chat-select-name">{{ $message->user->name }} </span>
+															<span class="chat-time">{{ $message->created_at }}</span>
+														</span>
+														<div class="chat-op">
+														<!--可以看自己房间的用户信息-->
+														<a class="chat-message-look-btn rolebtn look" data-uid="11642897"></a>
+														<a class=" rolebtn del chat-message-delete-btn" data-id="132136983"></a>
 														</div>
 													</div>
-												@endforeach
-											</div>
+													<div class="dot-top"></div>
+													<div class="chat-body ">
+														<span class="chat-content" style="  ">
+															@if($message->type =='1')
+															{{ $message->body }}
+															@else
+															<img class="chat-pic" title="点击查看原图" src={{ $message->body }} style="max-mwidth: 100%; max-height: 320px;" >
+															@endif
+														</span>
+														<span class="chat-plat">来自:{{ $message->platform }}</span>
+													</div>
+												</div>
+											@endforeach
+										</div>
 									</div>
 						</div>
 					
 						<div class="chat-bottom" style="bottom:0px; width:100%; height:calc(var(--vh, 1vh) *10);">
 							<form class="chat-form" style="height: calc(var(--vh, 1vh)*10);">
+
 								<div class="chat-form-caitiao alpha-bg-title" style="height: calc(var(--vh, 1vh)*5);">
 									<div class="citiao-warp">
 										<img data-id="1407"  data-url='/images/livevideo/IBqdZvtiqaidLWlvJswoidXib.gif' src="/images/livevideo/EGUAYFxdugupGpXfPnmuTZcrD.png" ></img>
@@ -710,10 +766,6 @@ $(function(){})
 										</ul>
 										<dir style="clear:both"></dir>
 									</div>
-									<!-- <div class="chat-form-input-wrap" style="margin-right:62px; display: inline-flex; width: 100%;">
-									
-										<button type="button" style="float: left;" class="chat-form-btn send-btn" id="js-send-btn"></button>
-									</div> -->
 								
 								</div>
 							</form>
@@ -723,17 +775,84 @@ $(function(){})
 	</div>
 </div>
 
-
-<!-- <script type="text/javascript" src="/js/livevideo/jsrender.min.js"></script> -->
-<!-- <script type="text/javascript" src="/js/livevideo/dialog-min.js"></script>
+<script type="text/javascript" src="/js/livevideo/jquery.min.js"></script>
+<script type="text/javascript" src="/js/livevideo/jsrender.min.js"></script>
+<script type="text/javascript" src="/js/livevideo/dialog-min.js"></script>
 <script type="text/javascript" src="/js/livevideo/jquery.nicescroll.min.js"></script>
 <script type="text/javascript" src="/js/livevideo/jquery.qrcode.min.js"></script>
 <script type="text/javascript" src="/js/livevideo/jquery.countdown.min.js"></script>
-<script type="text/javascript" src="/js/livevideo/sina-emotion.js?v=6"></script> -->
+<script type="text/javascript" src="/js/livevideo/sina-emotion.js?v=6"></script>
 
 <script type="text/javascript" src="/js/banner.js"></script>
-<!-- <script type="text/javascript" src='/js/livevideo/chat.js'></script> -->
+<script type="text/javascript" src="/js/livevideo/bootstrap.min.js"></script>
+<script type="text/javascript" src='/js/livevideo/chat.js'></script>
+<script>
+	$(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+			});
+	});
+</script>
+<script type="text/javascript">
+	if(!window.console){
+		window.console = {log:function(){}}
+	}
+	window.D = {
+		chatLen:parseInt('100'),
+		loginUiType:'0',
+		roomId:'12135',
+		roomTitle:'',
+		parentRoomId:'12090',
+		dynamicMsg:'',
+		showUserlist:0,
+		theme:{"layout":"layout-video-left"},
+		loginPopTs: "2147483647" * 1000|| 0,
+		showjc:0,
+		teacher_pre:'当前讲师：',
+		defaultBgStyle:'theme-background-0',
+		stockCode:"s_sh000001,s_sz399001,s_sz399006,s_sh000300,rt_hkHSI,gb_dji,hf_CHA50CFD",
+		lookVideoImg:"",
+		videoHW:'0.5625',
+		hot_btn:'投票',
+			videoBgImg:"http://res.wufangsoft.com/wolf/upload/admin/GHaGeLankIWAjdIGNPsemtNBz.jpg",
+			popType:'0',
+		chargeOpend:0,
+		containFortune:0,
+		jf_fortune_pop:0,
+		hot_got_max:0,
+		hot_got_ts:0,
+		chatOption:{
+			topic:'6e176d9a1f751b3054d14019e730c5dc_12135',
+					guestTopic:'49ac2035357148cbed4760bb0c5f7e30_12135',
+					siteTopic:'w_s_chat_307',
+					
+					clientId:'12135_12788659_web',
+					bigRoom:0
+		},
+		USER:{
+			uid:'12788659',
+			name:'游客SIP4W0SE',
+			type:'100',
+			pic:'image/livevideo/11.png',
+			chatIntervalCount:1,
+			plat:'web',
+			logined:0,
+			isManager:0,
+			isTeacher:0,
+			lookvideo:1,
+			vipLimitTs:0,
+			showVipBuy:0,
+		}
+	}
 
+	var __real_robot_num = 0;
+	var __base__ = 0;
+	var __base_num__ = 300;
+
+	$(function(){})
+</script>
 
 
 </body>

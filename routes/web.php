@@ -11,27 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-});
+    Route::get('/', function () {
+        $online_users = Active::users()->get();
+        return view('home.index')->with(compact('online_users'));
+    });
 
-Auth::routes();
-// Route::get('/auth/login', 'Auth\LoginController@login')->name('Login');
-// Route::post('/auth/dologin', 'Auth\LoginController@dologin')->name('doLogin');
- Route::get('/auth/logout', 'Auth\LoginController@logout')->name('Logout');
-// Route::get('/auth/register', 'Auth\LoginController@register')->name('Register');
-
-
-Route::group(['middleware' => 'auth'],function(){
+    Auth::routes();
+    Route::get('/auth/logout', 'Auth\LoginController@logout')->name('Logout');
+    Route::group(['middleware' => 'auth'],function(){
         
         Route::get('/home', 'HomeController@index')->name('home');        
         Route::get('/mobile', 'HomeController@mobile');
         Route::get('/teacher', 'HomeController@teacher');
-        // Route::get('admin/chartmng', 'ChartController@index');
 
         Route::get('/vipvideo', 'LivevideoController@vipvideo');
         Route::post('/chat/send', 'LivevideoController@send');
         Route::get('/chat/show', 'LivevideoController@show');
         Route::post('/profile/update', 'LivevideoController@profile_update');
 
-});
+    });
