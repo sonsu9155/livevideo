@@ -633,8 +633,8 @@ $(function(){})
 											<a href="/vipvideo">登录</a>
 											@endif
 										</li>
-										<li><a href="#news">公聊</a></li>
-										<li><a href="#about">人气榜</a></li>
+										<!-- <li><a href="#news">公聊</a></li>
+										<li><a href="#about">人气榜</a></li> -->
 										<li id="js-lecture-btn" data-toggle="modal" data-target="#myModal"><a>讲座计划</a></li>
 									<div class="modal " id="myModal" role="dialog" style="padding-left:0 !important;width:100%">
 										<div class="jg_kcb">
